@@ -19,16 +19,24 @@ jobs:
     - name: git clone our repo
       uses: actions/checkout@v1
     
-     
+    - name: Deploy to Staging server
+      uses: easingthemes/ssh-deploy@v2.0.7
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_KEY }}
+        ARGS: "-rltgoDzvO"
+        SOURCE: "."
+        REMOTE_HOST: ${{ secrets.EC2_DOMAIN_NAME }}
+        REMOTE_USER: ubuntu
+
 
       
 
-    - name: Clone a remote repo
-      run: |
-        mkdir ~/.ssh
-        echo "${{ secrets.EC2_KEY }}" > ~/.ssh/ec2.pem
-        chmod 400 ~/.ssh/ec2.pem
-        scp -i ~/.ssh/ec2.pem -r . ubuntu@${{ env.EC2_DOMAIN_NAME }}:~/
+#     - name: Clone a remote repo
+#       run: |
+#         mkdir ~/.ssh
+#         echo "${{ secrets.EC2_KEY }}" > ~/.ssh/ec2.pem
+#         chmod 400 ~/.ssh/ec2.pem
+#         scp -i ~/.ssh/ec2.pem -r . ubuntu@${{ env.EC2_DOMAIN_NAME }}:~/
       
         
         
