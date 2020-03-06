@@ -26,9 +26,9 @@ jobs:
     - name: Clone a remote repo
       run: |
         mkdir ~/.ssh
-        echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa 
-        scp -i ~/.ssh/id_rsa -r . ubuntu@${{ env.EC2_DOMAIN_NAME }}:~/
+        echo "${{ secrets.EC2_KEY }}" > ~/.ssh/ec2.pem
+        chmod 400 ~/.ssh/ec2.pem
+        scp -i ~/.ssh/ec2.pem -r . ubuntu@${{ env.EC2_DOMAIN_NAME }}:~/
       
         
         
